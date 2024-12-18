@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="The Sonic Vanguard - A Pretentious Music Critique Blog" />
+    <meta name="author" content="Warner MacDonald" />
+    <title>The Sonic Vanguard - Warner MacDonald's Auditory Musings</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- External resources for icons, fonts, and styles -->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <!-- Custom styles for game container and site heading -->
+    <style>
+        .game-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        .game-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .site-heading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+            z-index: 10;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Responsive navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="index.html">The Sonic Vanguard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href= "resume.html">My Resumé</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="review.html">Featured Review (Scratch Page)</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Game container with iframe and overlaid site heading -->
+    <header class="game-container">
+        <iframe class="game-frame" src="html/game.html" allowfullscreen></iframe>
+        <div class="site-heading">
+            <h1>The Sonic Vanguard</h1>
+            <span class="subheading"></span>
+        </div>
+    </header>
+    <!-- Main content area containing blog posts -->
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <h2 class="post-title mb-4" style="text-align: center;">Posts by Warner</h2>
+                <!-- Blog post previews with images and links -->
+                <div class="post-preview">
+                    <a href="https://seatgeek.com/coldplay-tickets?aid=34&pid=661182683&gid=34191020820&rid=kwd-25556391&dt=c&ap=&adId=612671270877&loc_interest=&loc_physical=1026980&n=g&mt=b&ext=&gad_source=1&gclid=Cj0KCQiA0--6BhCBARIsADYqyL9wzjTWG0DuYleupYIF-ih6yoAPtBBCGqZVpWz7_-APbUEb29WNxBEaApkGEALw_wcB">
+                        <h3 class="post-title">Get 2025 Coldplay Tickets</h3>
+                    </a>
+                    <div class="post-image-container">
+                        <img src="assets/img/Coldplay.png" alt="stuff" class="post-image">
+                    </div>
+                    <p class="post-meta">
+                        One of the world's biggest bands is coming back to the US! (PHOTO: Coldplay YouTube)
+                    </p>
+                </div>
+                <hr class="my-4" />
+                <!-- Additional blog post previews -->
+                <div class="post-preview">
+                    <a href="review.html">
+                        <h3 class="post-title">Review: No Such Animal's "The Entertainer"</h3>
+                    </a>
+                    <div class="post-image-container">
+                        <img src="assets/img/nosuch1.webp" alt="No Such Animal" class="post-image">
+                    </div>
+                    <p class="post-meta">
+                        No Such Animal performs at Fork Fest in 2023 (PHOTO: No Such Animal)  </a> on December 13, 2024
+                    </p>
+                </div>
+                <hr class="my-4" />
+                <div class="post-preview">
+                    <a href="https://www.interviewmagazine.com/music/discovery-dirty-gold">
+                        <h3 class="post-title">Dirty Gold: An Interview with the Dream-Pop Prodogies</h3>
+                    </a>
+                    <div class="post-image-container">
+                        <img src="assets/img/dgold.png" alt="Dirty Gold Band" class="post-image">
+                    </div>
+                    <p class="post-meta">
+                        PHOTO: Dirty Gold Facebook
+                    </p>
+                </div>
+                <hr class="my-4" />
+            </div>
+        </div>
+    </div>
+    <!-- Footer with social media links and copyright information -->
+    <footer class="border-top">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item">
+                            <a href="https://www.facebook.com/profile.php?id=100071766162960">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="small text-center text-muted fst-italic">
+                        Copyright &copy; The Sonic Vanguard 2024
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap and custom JavaScript files -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>

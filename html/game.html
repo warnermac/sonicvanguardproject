@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radiohead Kid A Inspired Game</title>
+    <style>
+        /* CSS styles for game elements */
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            display: block;
+        }
+        #score,
+        #highScore {
+            position: absolute;
+            bottom: 10px;
+            color: #fff;
+            font-size: 18px;
+        }
+        #score {
+            right: 10px;
+        }
+        #highScore {
+            left: 10px;
+        }
+        #startButton {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Game canvas and UI elements -->
+    <canvas id="gameCanvas"></canvas>
+    <div id="score">Score: 0</div>
+    <div id="highScore">High Score: 0</div>
+    <button id="startButton">Start Game</button>
+</body>
+</html>
+    <script>
+        // Get canvas and context for drawing
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const startButton = document.getElementById('startButton');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    
+        // Game variables initialization
+        let player, obstacles, score, highScore, gameSpeed, animationId;
+        const maxGameSpeed = 4.5;
+        const speedIncreaseInterval = 10000;
+        let isGameActive = false;
+    
+        // Color palette inspired by Radiohead's Kid A album
+        const kidAColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+    
+        // Initialize game state and start the game loop
+        function init() {
+            player = { x: canvas.width / 2 - 27, y: canvas.height - 108, width: 54, height: 54 };
+            obstacles = [];
+            score = 0;
+            gameSpeed = 1.5;
+            highScore = localStorage.getItem('highScore') || 0;
+            for (let i = 0; i < 8; i++) {
+                addObstacle();
+            }
+            updateScores();
+            isGameActive = true;
+            startButton.style.display = 'none';
+            animate();
+            setTimeout(increaseGameSpeed, speedIncreaseInterval);
+        }
+    
+        // Add a new obstacle to the game
+        function addObstacle() {
+            if (obstacles.length < 10) {
+                obstacles.push({
+                    x: Math.random() * (canvas.width - 100),
+                    y: -100,
+                    width: Math.random() * 60 + 40,
+                    height: Math.random() * 60 + 40,
+                    speed: Math.random() * 2 + 1,
+                    color: getRandomColor()
+                });
+            }
+        }
+    
+        // Function to select a random color from the Kid A-inspired color palette
+        function getRandomColor() {
+            return kidAColors[Math.floor(Math.random() * kidAColors.length)];
+        }
+    
+        // Main game animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ff0000';
+            ctx.fillRect(player.x, player.y, player.width, player.height);
+            updateObstacles();
+            if (checkCollisions()) {
+                gameOver();
+                return;
+            }
+            score++;
+            updateScores();
+            animationId = requestAnimationFrame(animate);
+        }
+    
+        // Update and render obstacles
+        function updateObstacles() {
+            for (let i = obstacles.length - 1; i >= 0; i--) {
+                const obstacle = obstacles[i];
+                obstacle.y += obstacle.speed * gameSpeed;
+                // Randomly change obstacle color for visual effect
+                if (Math.random() < 0.1) {
+                    obstacle.color = getRandomColor();
+                }
+                ctx.fillStyle = obstacle.color;
+                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+                // Remove obstacles that have moved off-screen and add new ones
+                if (obstacle.y > canvas.height) {
+                    obstacles.splice(i, 1);
+                    addObstacle();
+                }
+            }
+        }
+    
+        // Check for collisions between player and obstacles
+        function checkCollisions() {
+            return obstacles.some(obstacle =>
+                player.x < obstacle.x + obstacle.width &&
+                player.x + player.width > obstacle.x &&
+                player.y < obstacle.y + obstacle.height &&
+                player.y + player.height > obstacle.y
+            );
+        }
+    
+        // Handle game over state and display messages
+        function gameOver() {
+            cancelAnimationFrame(animationId);
+            isGameActive = false;
+            const gameOverMessage = document.createElement('div');
+            gameOverMessage.textContent = 'Game Over - Click to Restart';
+            gameOverMessage.style.position = 'absolute';
+            gameOverMessage.style.top = '70%';
+            gameOverMessage.style.left = '0';
+            gameOverMessage.style.width = '100%';
+            gameOverMessage.style.textAlign = 'center';
+            gameOverMessage.style.color = 'white';
+            gameOverMessage.style.fontSize = '24px';
+            gameOverMessage.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+            gameOverMessage.style.padding = '10px';
+            document.body.appendChild(gameOverMessage);
+    
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('highScore', highScore);
+                const newHighScoreMessage = document.createElement('div');
+                newHighScoreMessage.textContent = 'New High Score!';
+                newHighScoreMessage.style.position = 'absolute';
+                newHighScoreMessage.style.top = 'calc(70% + 40px)';
+                newHighScoreMessage.style.left = '0';
+                newHighScoreMessage.style.width = '100%';
+                newHighScoreMessage.style.textAlign = 'center';
+                newHighScoreMessage.style.color = 'gold';
+                newHighScoreMessage.style.fontSize = '20px';
+                document.body.appendChild(newHighScoreMessage);
+            }
+            startButton.style.display = 'block';
+        }
+    
+        // Update score and high score display
+        function updateScores() {
+            document.getElementById('score').textContent = `Score: ${score}`;
+            document.getElementById('highScore').textContent = `High Score: ${highScore}`;
+        }
+    
+        // Gradually increase game speed over time
+        function increaseGameSpeed() {
+            if (isGameActive && gameSpeed < maxGameSpeed) {
+                gameSpeed += 0.018; // Increased by 25% from 0.0144 to 0.018
+                setTimeout(increaseGameSpeed, speedIncreaseInterval);
+            }
+        }
+    
+        startButton.addEventListener('click', () => {
+            if (!isGameActive) {
+                const messages = document.querySelectorAll('div:not(#score):not(#highScore)');
+                messages.forEach(msg => msg.remove());
+                init();
+            }
+        });
+    
+        // Event listener for keyboard controls
+        window.addEventListener('keydown', (e) => {
+            if (!isGameActive) return;
+            // Move player based on arrow key input, ensuring player stays within canvas bounds
+            if (e.key === "ArrowLeft" && player.x > 0) player.x -= 15;
+            if (e.key === "ArrowRight" && player.x < canvas.width - player.width) player.x += 15;
+            if (e.key === "ArrowUp" && player.y > 0) player.y -= 15;
+            if (e.key === "ArrowDown" && player.y < canvas.height - player.height) player.y += 15;
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+            }
+        });
+    
+        // Adjust canvas size and player position on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            if (player) {
+                player.y = canvas.height - 108;
+            }
+        });
+    
+        // Initialize score display
+        updateScores();
+    </script>
+</body>
+</html>    
